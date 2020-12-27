@@ -2,6 +2,16 @@
 	declare(strict_types=1);
 
 	class Validator {
+
+		public $name;
+    	private $content;
+    	private $required;
+
+		public function fieldName($name) {
+			$this->name = $name;
+			return $this;
+		}
+
 		public function isString(string $string) {
 			return is_string($string);
 		}
@@ -14,4 +24,6 @@
 
 			return $this;
 		}
+
+
 	}
