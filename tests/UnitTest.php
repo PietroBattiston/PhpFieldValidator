@@ -19,12 +19,21 @@
 
 	class UnitTest extends TestCase {
 
-		public function test_an_input_type_can_be_recognized(): void {
+		public function test_a_string_can_be_recognized(): void {
 	        $string = "String";
 	        $validator = new Validator;
 
 	       	$this->assertIsBool($validator->isString($string));
 
+
+    	}
+
+    	public function test_a_string_can_be_sanitized(): void {
+	        $string = "<alert>String</alert>";
+	        $validator = new Validator;
+
+	        $this->assertNotEquals($string, $validator->sanitize($string));
+	        $this->assertEquals("String", $validator->sanitize($string));
 
     	}
 
