@@ -23,48 +23,52 @@
 
 	class UnitTest extends TestCase {
 
+		private $validator;
+
+		protected function setUp(): void {
+			$this->validator = new Validator;
+		}
 	   
 		public function test_a_field_name_can_be_set(): void {
-			$validator = new Validator;
+
 			$_POST['name'] = "string";
 
-	       	$this->assertEquals('name', $validator->fieldName('name')->name);
+	       	$this->assertEquals('name', $this->validator->fieldName('name')->name);
 				
 		}
 
 		public function test_a_string_can_be_recognized(): void {
-	        $string = "String";
-	        $validator = new Validator;
 
-	       	$this->assertIsBool($validator->isString($string));
-	       	$this->assertEquals(true, $validator->isString($string));
+	        $string = "String";
+	      
+	       	$this->assertIsBool($this->validator->isString($string));
+	       	$this->assertEquals(true, $this->validator->isString($string));
     	}
 
     	public function test_a_string_can_be_sanitized(): void {
-	        $validator = new Validator;
+	       
 	        $_POST['name'] = "<alert>String</alert>";
-	        $validator->name = 'name';
-	        $validator->content = $_POST['name'];
+	        $this->validator->name = 'name';
+	        $this->validator->content = $_POST['name'];
 
-	        $this->assertNotEquals($validator->content, $validator->sanitize($validator->content)->content);
-	        $this->assertEquals("String", $validator->sanitize($validator->content)->content);
+	        $this->assertNotEquals($this->validator->content, $this->validator->sanitize($this->validator->content)->content);
+	        $this->assertEquals("String", $this->validator->sanitize($this->validator->content)->content);
     	}
 
     	public function test_an_email_can_be_recognized(): void {
-   			$validator = new Validator;
+   			
    			$email = "email@email.com";
    			
-   			$this->assertIsBool($validator->isEmail($email));
-	       	$this->assertEquals(true, $validator->isEmail($email));
+   			$this->assertIsBool($this->validator->isEmail($email));
+	       	$this->assertEquals(true, $this->validator->isEmail($email));
    		}
 
    		public function test_a_field_can_be_required(): void {
-   			$validator = new Validator;
    			
-   			$this->assertIsBool($validator->required());
-	       	$this->assertEquals(true, $validator->required());
+   			$this->assertIsBool($this->validator->required());
+	       	$this->assertEquals(true, $this->validator->required());
    		}
 
-   		
+
    	}
 
