@@ -7,7 +7,6 @@
 		// Our script must:
 		// Check if the field exists
 		// Check input type (string, file, etc)
-		// Set a field as required
 		// Verify telephone numbers format
 		// Verify Postcodes format
 		// Verify Date of birth
@@ -18,6 +17,7 @@
 				//OK
 		// Sanitize strings OK
 		// Verify email format
+		// Set a field as required
 
 	
 
@@ -65,8 +65,19 @@
 
    		public function test_a_field_can_be_required(): void {
    			
-   			$this->assertIsBool($this->validator->required());
-	       	$this->assertEquals(true, $this->validator->required());
+   			$this->assertIsBool($this->validator->required()->required);
+	       	$this->assertEquals(true, $this->validator->required()->required);
+   		}
+
+   		public function test_a_field_cannot_be_empty_if_required(): void {
+   			
+   			$this->validator->content = '';
+   			$this->validator->name = 'field';
+
+   			$this->validator->required()->validate();
+
+   			$this->assertIsBool($this->validator->required);
+   			$this->assertFalse(empty($this->validator->error));
    		}
 
 
