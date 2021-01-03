@@ -2,8 +2,10 @@
 	declare(strict_types=1);
 
 	//we set the field name
+	// we get the content
+	// we call any related Classes
 	// we get the errors
-	// we finalize the validation
+	// we finalize
 
 	use Traits\StringTrait as StringTrait;
 
@@ -11,24 +13,35 @@
 
 		use StringTrait;
 
-		public $name;
+		public $fields;
+		public $rules;
     	public $content;
     	public $required;
     	public $error;
     	private $error_manager;
 
-    	public function __construct() {
+    	public $validateRequest;
+
+    	public function __construct(array $validateRequest) {
+    		$this->validateRequest = $validateRequest;
+    		$this->fields = [];
+    		$this->rules = [];
+
+
     		$this->required = FALSE;
     		$this->error = [];
     		$this->error_manager = new ErrorManager;
     	}
 
-    	
-		public function fieldName($name) {
-			$this->name = $name;
-			$this->getContent();
-			return $this;
-		}
+
+
+
+    	public function prepare() {
+    		foreach ($this->validateRequest as $field => $rule) {
+    			$this->fields[$field] = $this->getContent($field);
+    			$this->rules[] = explode("|", $rule);
+    		}
+    	}
 
 
 		public function sanitize() {
@@ -53,27 +66,16 @@
 
 		public function getError($message) {
 			
-			array_push(
-				$this->error, 
-				$this->error_manager->storeError($this->name, $message)
-			);
+			$this->error[] = $this->error_manager->storeError($this->name, $message);
 		}
 
 		public function validate() {
 
-			// try {
-			// 	if ($this->required == TRUE && $this->content) {
-			// 			throw CustomError::error1();
-			// 	}	
-			// } catch (CustomError $e) {
-			// 	var_dump($e->getMessage());
-			// }
-			
 		}
 
-		private function getContent() {
+		private function getContent($fieldName) {
 			// We get the Body Content
-      		$this->content = $_POST[$this->name];
+      		return $_POST[$fieldName];
 		}
 
 		
