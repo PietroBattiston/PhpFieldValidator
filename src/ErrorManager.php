@@ -1,12 +1,13 @@
 <?php
 	declare(strict_types=1);
-
+	namespace App;
+	
 	class ErrorManager extends Validator {
 
     	public $error;
     	public $name;
 
-    	public function __construct() {
+    	function __construct() {
     		$this->error = [];
     	}
 
