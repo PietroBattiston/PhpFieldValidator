@@ -2,14 +2,18 @@
 	declare(strict_types=1);
 	namespace App\Rules;
 
+	use App\Traits\RulesTrait as RulesTrait; 
+
+
 	class Sanitize implements RulesInterface {
+
+		use RulesTrait;
 
 		public $content;
 
 		function __construct(string $string) {
 			$this->content = $string;
-			$this->content = $this->validate();
-			
+			$this->notEmpty();
 		}
 
 		public function validate():string {

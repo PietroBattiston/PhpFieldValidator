@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 
 	namespace App\Rules;
-	use App\Traits\RulesTrait as RulesTrait; 
+	use App\Traits\RulesTrait as RulesTrait;
 
 	/**
 	 * field name =>|[
@@ -21,7 +21,6 @@
 			$this->error = '';
 			$this->notEmpty();
 			//$this->content = $this->validate();
-
 		}
 
 		public function validate() {
@@ -32,7 +31,7 @@
 			}
 		}
 
-		public function error() {
+		public function error():void {
 			$this->error = 'not a valid email';
 		}
 
