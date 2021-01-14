@@ -32,7 +32,8 @@
 		}
 
 		public function error():void {
-			$this->error = 'not a valid email';
+			$errorMsg = 'is not a valid email';
+			$this->returnError($errorMsg);
 		}
 
 		private function sanitize(string $content):string {

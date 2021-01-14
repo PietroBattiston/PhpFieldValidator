@@ -28,7 +28,8 @@
 		}
 
 		public function error():void {
-			$this->error = 'not a number';
+			$errorMsg = 'is not a number';
+			$this->returnError($errorMsg);
 		}
 
 		
