@@ -10,12 +10,10 @@
 
 		use RulesTrait;
 
-		public $fieldName;
 		public $content;
 		public $error;
 		
-		function __construct(string $fieldName, string $content) {
-			$this->fieldName = $fieldName;
+		function __construct(string $content) {
 			$this->content = $content;
 			$this->error = '';
 			$this->validate();
@@ -28,7 +26,8 @@
 		}
 
 		public function error():void {
-			$this->error = 'the field is required';
+			$errorMsg = 'is required but is empty';
+			$this->returnError($errorMsg);
 		}
 
 		

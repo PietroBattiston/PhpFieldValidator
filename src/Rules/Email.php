@@ -9,12 +9,10 @@
 
 		use RulesTrait;
 		
-		public $fieldName;
 		public $content;
 		public $error;
 		
-		function __construct(string $fieldName, string $content) {
-			$this->fieldName = $fieldName;
+		function __construct(string $content) {
 			$this->content = $content;
 			$this->error = '';
 			$this->notEmpty();
@@ -23,6 +21,7 @@
 		public function validate() {
 			if ($this->isValidEmail($this->sanitize($this->content))) {
 				return (string) $this->content;
+
 			}else {
 				$this->error();
 			}

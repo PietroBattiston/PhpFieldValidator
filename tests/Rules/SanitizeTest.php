@@ -16,7 +16,7 @@
 		public function test_a_string_can_be_sanitized():void {
 			$stringToSanitize = '<alert>string</alert>';
 
-			$sanitize = new Sanitize($this->fieldName, $stringToSanitize);
+			$sanitize = new Sanitize($stringToSanitize);
 
 			$this->assertNotEquals($stringToSanitize, $sanitize->content);
 		}
@@ -24,7 +24,7 @@
 		
 		public function test_a_string_can_be_empty():void {
 			$emptyString = '';
-			$sanitize = new Sanitize($this->fieldName, $emptyString);
+			$sanitize = new Sanitize($emptyString);
 			
 
 			$this->assertEmpty($sanitize->content);

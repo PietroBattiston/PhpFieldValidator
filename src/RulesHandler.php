@@ -12,11 +12,13 @@
 	class RulesHandler extends Rules {
 
 		public $fields;
+		public $errors;
 		private $Rulesnamespace;
 
     	function __construct(array $fields) {
 
     		$this->fields = $fields;
+    		$this->errors = [];
     		parent::__construct();
 
     		// We manually add the namespace bacause adding it dinamically above will cause an error inside callRelatedClass method. 
@@ -24,17 +26,13 @@
     		
     	}
 
-
-
-
     	public function prepare() {
 	    	foreach ($this->fields as $key => $value) {
 	    		$content = $value['content'];
-	    		// Rules are separated by |. We extract them
+	    		// Rules are separated by |. We separate them
 	    		$rules = explode('|', $value['rules']);
-	    		$content = $this->callRelatedClass($key, $content, $rules);
-	    		$this->updateContent($key, $content);
-
+	    		$validation = $this->callRelatedClass($key, $content, $rules);
+	    		$this->checkErrors($key, $validation);
 	    	}
 	    		
     	}
@@ -42,8 +40,8 @@
     	private function callRelatedClass(string $fieldName, string $content, array $rules) {
     		foreach ($rules as $rule) {
     			$ruleToCall = $this->Rulesnamespace . $this->rules_list[$rule];
-    			$validation = new $ruleToCall($fieldName, $content);
-    			return $validation->content;
+    			$validation = new $ruleToCall($content);
+    			return $validation;
     		}
     	}
 
@@ -52,9 +50,13 @@
     	}
 
 
-		public function getError($message) {
-		
-			$this->error[] = $this->error_manager->storeError($this->name, $message);
+		private function checkErrors($fieldName, $validation) {
+			if ($validation->error) {
+				$this->errors[$fieldName] = $validation->error;
+			}else{
+	    		$this->updateContent($fieldName, $validation->content);
+			}
+			
 		}
 
 		

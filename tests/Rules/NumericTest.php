@@ -15,21 +15,21 @@
 
 		public function test_a_numeric_value_can_be_recognized():void {
 			$numericString = '1234';
-			$numericValidator = new Numeric($this->fieldName, $numericString);
+			$numericValidator = new Numeric($numericString);
 
 			$this->assertTrue(empty($numericValidator->error));
 		}
 
 		public function test_a_not_numeric_value_must_return_an_error():void {
 			$notNumeric = 'abc';
-			$numericValidator = new Numeric($this->fieldName,$notNumeric);
+			$numericValidator = new Numeric($notNumeric);
 
 			$this->assertFalse(empty($numericValidator->error));
 		}
 
 		public function test_an_empty_value_must_return_null():void {
 			$empty = '';
-			$numericValidator = new Numeric($this->fieldName,$empty);
+			$numericValidator = new Numeric($empty);
 
 			$this->assertEquals($numericValidator->content, NULL);
 		}

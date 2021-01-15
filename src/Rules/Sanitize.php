@@ -9,13 +9,13 @@
 
 		use RulesTrait;
 
-		public $fieldName;
 		public $content;
+		public $error;
 
 
-		function __construct(string $fieldName, string $content) {
-			$this->fieldName = $fieldName;
+		function __construct(string $content) {
 			$this->content = $content;
+			$this->error = '';
 			$this->notEmpty();
 		}
 
