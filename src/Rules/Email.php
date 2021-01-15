@@ -4,23 +4,20 @@
 	namespace App\Rules;
 	use App\Traits\RulesTrait as RulesTrait;
 
-	/**
-	 * field name =>|[
-	 ] content,
-	  error
-	 */
+	
 	class Email implements RulesInterface {
 
 		use RulesTrait;
-
+		
+		public $fieldName;
 		public $content;
 		public $error;
 		
-		function __construct(string $string) {
-			$this->content = $string;
+		function __construct(string $fieldName, string $content) {
+			$this->fieldName = $fieldName;
+			$this->content = $content;
 			$this->error = '';
 			$this->notEmpty();
-			//$this->content = $this->validate();
 		}
 
 		public function validate() {

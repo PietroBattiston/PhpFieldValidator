@@ -10,6 +10,7 @@
 		}
 
 		public function returnError(string $errorMsg):void {
-			$this->error = "$this->content $errorMsg";
+			$this->error = "$this->fieldName $errorMsg ($this->content)";
+			var_dump($this->error);
 		}
 	}

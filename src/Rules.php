@@ -13,7 +13,7 @@
 			$this->rules_list = [
 				'sanitize' => 'Sanitize',
 				'email' => 'Email',
-				'required' => ''
+				'required' => 'Required',
 
 			];
 		}

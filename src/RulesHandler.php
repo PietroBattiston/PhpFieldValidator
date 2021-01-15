@@ -32,24 +32,23 @@
 	    		$content = $value['content'];
 	    		// Rules are separated by |. We extract them
 	    		$rules = explode('|', $value['rules']);
-	    		$content = $this->callRelatedClass($content, $rules);
+	    		$content = $this->callRelatedClass($key, $content, $rules);
 	    		$this->updateContent($key, $content);
 
 	    	}
 	    		
     	}
 
-    	private function callRelatedClass(string $content, array $rules) {
+    	private function callRelatedClass(string $fieldName, string $content, array $rules) {
     		foreach ($rules as $rule) {
     			$ruleToCall = $this->Rulesnamespace . $this->rules_list[$rule];
-    			$validate = new $ruleToCall($content);
-    			
-    			return $validate->content;
+    			$validation = new $ruleToCall($fieldName, $content);
+    			return $validation->content;
     		}
     	}
 
-    	private function updateContent(string $field_name, string $content) {
-    		$this->fields[$field_name]['content'] = $content;
+    	private function updateContent(string $fieldName, string $content) {
+    		$this->fields[$fieldName]['content'] = $content;
     	}
 
 
