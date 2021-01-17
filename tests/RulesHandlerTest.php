@@ -34,14 +34,14 @@
 			$this->field = [
 				'field-name' => [
 					'content' => '<alert>string1</alert>',
-					'rules' => 'sanitize|sanitize|sanitize'
+					'rules' => 'sanitize|email|required'
 				]
 			];
 
 			$this->validField = [
 				'field-name'=> [
 					'content' => 'hello@mail.com',
-					'rules' => 'email|sanitize|sanitize'
+					'rules' => 'email|required'
 				]
 			];
 
@@ -49,6 +49,13 @@
 				'field-name'=> [
 					'content' => 'not-an-email',
 					'rules' => 'email|sanitize'
+				]
+			];
+
+			$this->ruleWithParameters = [
+				'field-name'=> [
+					'content' => 'abc',
+					'rules' => 'length:2'
 				]
 			];
 
@@ -99,6 +106,16 @@
 			$this->assertEquals(key($this->invalidField), key($rulesHandler->errors));
 			$this->assertFalse(empty($rulesHandler->errors[key($this->invalidField)]));
 		}
+
+		public function test_rules_can_have_parameters(): void {
+			$rulesHandler = new RulesHandler($this->ruleWithParameters);
+			$rulesHandler->prepare();
+
+			$this->assertFalse(empty($rulesHandler->errors));
+		}
+
+
+
 
 
 

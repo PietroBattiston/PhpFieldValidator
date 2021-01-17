@@ -13,23 +13,17 @@
 
 		public $fields;
 		public $errors;
-		private $Rulesnamespace;
 
     	function __construct(array $fields) {
-
     		$this->fields = $fields;
     		$this->errors = [];
-    		parent::__construct();
-
-    		// We manually add the namespace bacause adding it dinamically above will cause an error inside callRelatedClass method. 
-    		$this->Rulesnamespace = 'App\Rules\\';
-    		
+    		parent::__construct();		
     	}
 
     	public function prepare() {
 	    	foreach ($this->fields as $key => $value) {
 	    		$content = $value['content'];
-	    		// Rules are separated by |. We separate them
+	    		// Rules are separated by |. We extract them
 	    		$rules = explode('|', $value['rules']);
 	    		$validation = $this->callRelatedClass($key, $content, $rules);
 	    		$this->checkErrors($key, $validation);
@@ -39,24 +33,40 @@
 
     	private function callRelatedClass(string $fieldName, string $content, array $rules) {
     		foreach ($rules as $rule) {
-    			$ruleToCall = $this->Rulesnamespace . $this->rules_list[$rule];
-    			$validation = new $ruleToCall($content);
+    			$ruleWithParameter = $this->checkRuleWithParameter($rule);
+    			if ($ruleWithParameter) {
+    				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
+    				$parameter = $ruleWithParameter[1];
+    				$validation = new $ruleToCall($content, intval($parameter));
+    			}else{
+    				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
+    				$validation = new $ruleToCall($content);
+    			}
+
+    			
     			return $validation;
     		}
     	}
 
-    	private function updateContent(string $fieldName, string $content) {
+    	private function updateContent(string $fieldName, string $content):void {
     		$this->fields[$fieldName]['content'] = $content;
     	}
 
 
-		private function checkErrors($fieldName, $validation) {
+		private function checkErrors($fieldName, $validation):void {
 			if ($validation->error) {
 				$this->errors[$fieldName] = $validation->error;
 			}else{
 	    		$this->updateContent($fieldName, $validation->content);
 			}
 			
+		}
+
+		private function checkRuleWithParameter(string $rule) {
+			$rule = explode(':', $rule);
+			if (count($rule) > 1) {
+				return (array) $rule;
+			}
 		}
 
 		

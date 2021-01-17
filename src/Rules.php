@@ -8,13 +8,19 @@
 	class Rules {
 		
 		public $rules_list;
+		public $rulesNamespace;
 
 		function __construct() {
+
 			$this->rules_list = [
 				'sanitize' => 'Sanitize',
 				'email' => 'Email',
 				'required' => 'Required',
+				'numeric' => 'Numeric',
+				'length' => 'Length'
 
 			];
+
+			$this->rulesNamespace = 'App\Rules\\';
 		}
 	}

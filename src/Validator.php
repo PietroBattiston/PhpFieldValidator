@@ -47,27 +47,6 @@
     		}
     	}
 
-
-		public function sanitize() {
-      		// We check if the Content is not empty and if is a string
-		    if ($this->content && $this->isString($this->content)) {
-		    	$string = new Sanitize($this->content);
-		    	$this->content  = $string->sanitize();
-		    }
-
-      		return $this;
-		}
-
-		
-		public function required() {
-			$this->required = TRUE;
-			if (!$this->content) {
-				$this->getError(' is required');
-			}
-			
-			return $this;
-		}
-
 		public function getError($message) {
 			
 			$this->error[] = $this->error_manager->storeError($this->name, $message);
