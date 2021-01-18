@@ -14,8 +14,7 @@
 		public $error;
 		
 		function __construct(string $content) {
-			$this->content = $content;
-			$this->error = '';
+			$this->constructor($content);
 			$this->notEmpty();
 		}
 

@@ -12,4 +12,9 @@
 		public function returnError(string $errorMsg):void {
 			$this->error = $errorMsg;
 		}
+
+		public function constructor(string $content):void {
+			$this->content = $content;
+			$this->error = '';
+		}
 	}
