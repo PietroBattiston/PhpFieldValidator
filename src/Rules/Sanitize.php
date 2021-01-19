@@ -5,16 +5,13 @@
 	use App\Traits\RulesTrait as RulesTrait; 
 
 
-	class Sanitize implements RulesInterface {
+	class Sanitize extends Rule implements RulesInterface {
 
 		use RulesTrait;
 
-		public $content;
-		public $error;
-
 
 		function __construct(string $content) {
-			$this->constructor($content);
+			parent::__construct($content);
 			$this->notEmpty();
 		}
 
@@ -23,7 +20,7 @@
 			
 		}
 
-		public function error() {
+		public function error():void {
 
 		}
 		

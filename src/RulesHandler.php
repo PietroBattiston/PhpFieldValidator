@@ -37,13 +37,13 @@
     			if ($ruleWithParameter) {
     				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
     				$parameter = $ruleWithParameter[1];
-    				$validation = new $ruleToCall($content, intval($parameter));
+    				$this->checkNumericParameter($parameter);
+    				$validation = new $ruleToCall($content, $parameter);
     			}else{
     				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
     				$validation = new $ruleToCall($content);
     			}
 
-    			
     			return $validation;
     		}
     	}
@@ -67,6 +67,15 @@
 			if (count($rule) > 1) {
 				return (array) $rule;
 			}
+		}
+
+		private function checkNumericParameter(string $parameter) {
+			if (is_numeric($parameter)) {
+				return (string) intval($parameter);
+			}else{
+				return (string) $parameter;
+			}
+			
 		}
 
 		

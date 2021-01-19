@@ -5,22 +5,20 @@
 	use App\Traits\RulesTrait as RulesTrait;
 
 	
-	class Email implements RulesInterface {
+	class Email extends Rule implements RulesInterface {
 
 		use RulesTrait;
 		
-		public $content;
-		public $error;
+		
 		
 		function __construct(string $content) {
-			$this->constructor($content);
+			parent::__construct($content);
 			$this->notEmpty();
 		}
 
 		public function validate() {
 			if ($this->isValidEmail($this->sanitize($this->content))) {
 				return (string) $this->content;
-
 			}else {
 				$this->error();
 			}

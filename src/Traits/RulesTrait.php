@@ -17,4 +17,8 @@
 			$this->content = $content;
 			$this->error = '';
 		}
+
+		public function returnContent() {
+			return $this->content;
+		}
 	}

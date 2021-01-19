@@ -15,7 +15,6 @@
 		public function test_an_email_can_be_validated():void {
 			$validEmail = 'email@email.com';
 			$emailRule = new Email($validEmail);
-
 			$this->assertEquals($validEmail, $emailRule->content);
 			$this->assertTrue(empty($emailRule->error));
 

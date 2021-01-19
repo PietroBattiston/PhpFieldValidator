@@ -6,15 +6,12 @@
 	use App\Traits\RulesTrait as RulesTrait;
 
 
-	class Required implements RulesInterface {
+	class Required extends Rule implements RulesInterface {
 
 		use RulesTrait;
-
-		public $content;
-		public $error;
 		
 		function __construct(string $content) {
-			$this->constructor($content);
+			parent::__construct($content);
 			$this->validate();
 		}
 

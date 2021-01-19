@@ -2,22 +2,22 @@
 	declare(strict_types=1);
 
 	namespace App\Rules;
-
 	use App\Traits\RulesTrait as RulesTrait;
 
-
-	class Numeric extends Rule implements RulesInterface {
+	
+	class MinLength extends Length implements RulesInterface {
 
 		use RulesTrait;
-
+		
 	
-		function __construct(string $content) {
-			parent::__construct($content);
+		function __construct(string $content, int $lengthValue) {
+			$this->constructor($content);
+			$this->lengthValue = $lengthValue;
 			$this->notEmpty();
 		}
 
 		public function validate() {
-			if (is_numeric($this->content)) {
+			if (strlen($this->content) >= $this->lengthValue ) {
 				$this->returnContent();
 			}else{
 				$this->error();
@@ -25,7 +25,7 @@
 		}
 
 		public function error():void {
-			$errorMsg = 'is not a number';
+			$errorMsg = 'does not respect the specified length';
 			$this->returnError($errorMsg);
 		}
 

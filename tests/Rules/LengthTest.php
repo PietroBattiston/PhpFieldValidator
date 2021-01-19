@@ -10,20 +10,20 @@
 		public $string;
 		
 		protected function setUp(): void {
-			$this->string = 'abc';
+			$this->string = uniqid();
 		}
 
 		public function test_a_string_must_respect_the_specified_length():void {
 
-			$lenghtValidator = new Length($this->string,3);
+			$lenghtValidator = new Length($this->string, strlen($this->string));
 
 			$this->assertTrue(empty($lenghtValidator->error));
 
 		}
 
 		public function test_it_must_return_error_if_doesnt_respect_length():void {
-		
-			$lenghtValidator = new Length($this->string,2);
+			$lenghtValidator = new Length($this->string,0);
+
 			$this->assertFalse(empty($lenghtValidator->error));
 
 		}

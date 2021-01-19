@@ -2,30 +2,31 @@
 	declare(strict_types=1);
 
 	namespace App\Rules;
-
 	use App\Traits\RulesTrait as RulesTrait;
 
-
-	class Numeric extends Rule implements RulesInterface {
+	
+	class Type extends Rule implements RulesInterface {
 
 		use RulesTrait;
 
-	
-		function __construct(string $content) {
+		private $type;
+		
+		function __construct($content, string $type) {
 			parent::__construct($content);
+			$this->type = $type;
 			$this->notEmpty();
 		}
 
 		public function validate() {
-			if (is_numeric($this->content)) {
-				$this->returnContent();
-			}else{
+			if (gettype($this->content) == $this->type) {
+				return $this->content;
+			}else {
 				$this->error();
 			}
 		}
 
 		public function error():void {
-			$errorMsg = 'is not a number';
+			$errorMsg = "is not of the type $this->type";
 			$this->returnError($errorMsg);
 		}
 

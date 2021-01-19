@@ -17,7 +17,8 @@
 				'email' => 'Email',
 				'required' => 'Required',
 				'numeric' => 'Numeric',
-				'length' => 'Length'
+				'length' => 'Length',
+				'type' => 'Type'
 
 			];
 

@@ -55,7 +55,7 @@
 			$this->ruleWithParameters = [
 				'field-name'=> [
 					'content' => 'abc',
-					'rules' => 'length:2'
+					'rules' => 'type:string'
 				]
 			];
 
@@ -77,9 +77,9 @@
 		}
 
 		public function test_after_calling_rules_must_update_content_of_valid_field(): void {
-			$rulesHandler = new RulesHandler($this->validField);
+			$rulesHandler = new RulesHandler($this->ruleWithParameters);
 			$rulesHandler->prepare();
-			$validField = $this->validField['field-name']['content'];
+			$validField = $this->ruleWithParameters['field-name']['content'];
 			$this->assertEquals($validField, $rulesHandler->fields['field-name']['content']);
 		}
 
@@ -110,8 +110,8 @@
 		public function test_rules_can_have_parameters(): void {
 			$rulesHandler = new RulesHandler($this->ruleWithParameters);
 			$rulesHandler->prepare();
-
-			$this->assertFalse(empty($rulesHandler->errors));
+			
+			$this->assertTrue(empty($rulesHandler->errors));
 		}
 
 
