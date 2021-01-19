@@ -11,21 +11,21 @@
 		
 	
 		function __construct(string $content, int $lengthValue) {
-			$this->constructor($content);
 			$this->lengthValue = $lengthValue;
+			parent::__construct($content, $lengthValue);
 			$this->notEmpty();
 		}
 
 		public function validate() {
 			if (strlen($this->content) >= $this->lengthValue ) {
-				$this->returnContent();
+				return (string) $this->content;
 			}else{
 				$this->error();
 			}
 		}
 
 		public function error():void {
-			$errorMsg = 'does not respect the specified length';
+			$errorMsg = "does not respect the specified Min Length: $this->lengthValue";
 			$this->returnError($errorMsg);
 		}
 

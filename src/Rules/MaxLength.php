@@ -5,20 +5,19 @@
 	use App\Traits\RulesTrait as RulesTrait;
 
 	
-	class Length extends Rule implements RulesInterface {
+	class MaxLength extends Length implements RulesInterface {
 
 		use RulesTrait;
 		
-		private $lengthValue;
-		
+	
 		function __construct(string $content, int $lengthValue) {
-			parent::__construct($content);
 			$this->lengthValue = $lengthValue;
+			parent::__construct($content, $lengthValue);
 			$this->notEmpty();
 		}
 
 		public function validate() {
-			if (strlen($this->content) == $this->lengthValue ) {
+			if (strlen($this->content) <= $this->lengthValue ) {
 				return (string) $this->content;
 			}else{
 				$this->error();
@@ -26,16 +25,8 @@
 		}
 
 		public function error():void {
-			$errorMsg = 'does not respect the specified length';
+			$errorMsg = "does not respect the specified Min Length: $this->lengthValue";
 			$this->returnError($errorMsg);
-		}	
-
-		private function max() {
-			if (strlen($this->content <= $this->lengthValue ) ) {
-				return (string) $this->content;
-			}else{
-				$this->error();
-			}
 		}
 
 		

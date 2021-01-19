@@ -18,7 +18,7 @@
 
 		public function validate() {
 			if (is_numeric($this->content)) {
-				$this->returnContent();
+				return (string) $this->content;
 			}else{
 				$this->error();
 			}

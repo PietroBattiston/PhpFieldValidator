@@ -13,12 +13,7 @@
 			$this->error = $errorMsg;
 		}
 
-		public function constructor(string $content):void {
-			$this->content = $content;
-			$this->error = '';
-		}
+		
 
-		public function returnContent() {
-			return $this->content;
-		}
+		
 	}
