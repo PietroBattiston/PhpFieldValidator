@@ -23,7 +23,13 @@
 			$slugValidator = new Slug($this->sluggedString);
 
 			$this->assertEquals($this->sluggedString, $slugValidator->content);
+		}
 
+		public function test_a_Notslugged_string_must_be_returned_slugged():void {
+			
+			$slugValidator = new Slug($this->notSluggedString);
+
+			$this->assertEquals($this->sluggedString, $slugValidator->content);
 		}
 
 		
