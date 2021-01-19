@@ -55,7 +55,7 @@
 			$this->ruleWithParameters = [
 				'field-name'=> [
 					'content' => 'abc',
-					'rules' => 'type:string'
+					'rules' => 'type:string|slug'
 				]
 			];
 

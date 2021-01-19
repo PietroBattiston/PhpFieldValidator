@@ -13,6 +13,16 @@
 			$this->error = $errorMsg;
 		}
 
+		public function WhiteSpaces(string $content) {
+			if (strpos($content, ' ') == FALSE) {
+				return TRUE;
+			}
+		}
+
+		public function strReplace($content, $replacement):string {
+			return str_replace(' ', $replacement, $content);
+		}
+
 		
 
 		
