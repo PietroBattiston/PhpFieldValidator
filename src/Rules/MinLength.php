@@ -8,7 +8,6 @@
 	class MinLength extends Length implements RulesInterface {
 
 		use RulesTrait;
-		
 	
 		function __construct(string $content, int $lengthValue) {
 			$this->lengthValue = $lengthValue;
@@ -17,7 +16,7 @@
 		}
 
 		public function validate() {
-			if (strlen($this->content) >= $this->lengthValue ) {
+			if ($this->count() >= $this->lengthValue ) {
 				return (string) $this->content;
 			}else{
 				$this->error();

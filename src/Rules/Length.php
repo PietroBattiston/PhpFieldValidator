@@ -3,12 +3,14 @@
 
 	namespace App\Rules;
 	use App\Traits\RulesTrait as RulesTrait;
+	use App\Traits\CountTrait as CountTrait;
 
 	
 	class Length extends Rule implements RulesInterface {
 
 		use RulesTrait;
-		
+		use CountTrait;
+
 		private $lengthValue;
 		
 		function __construct(string $content, int $lengthValue) {
@@ -18,7 +20,7 @@
 		}
 
 		public function validate() {
-			if (strlen($this->content) == $this->lengthValue ) {
+			if ($this->count() == $this->lengthValue ) {
 				return (string) $this->content;
 			}else{
 				$this->error();

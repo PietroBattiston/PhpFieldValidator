@@ -16,11 +16,11 @@
 
 		public function validate():string {
 			// if the string does not contain white spaces we return it
-			if ($this->WhiteSpaces($this->content)) {
+			if ($this->WhiteSpaces()){
 				return (string) $this->content;
 			}else {
 			//otherwise we remove all the white spaces
-				return $this->strReplace($this->content, '');
+				return $this->strReplace('');
 			}
 		}
 

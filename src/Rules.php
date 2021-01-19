@@ -20,6 +20,7 @@
 				'length' => 'Length',
 				'type' => 'Type',
 				'slug' => 'Slug',
+				'nospace' => 'NoSpace'
 			];
 
 			$this->rulesNamespace = 'App\Rules\\';
