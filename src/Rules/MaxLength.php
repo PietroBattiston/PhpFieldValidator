@@ -14,6 +14,7 @@
 
 		public function validate() {
 			if ($this->count() <= $this->lengthValue ) {
+
 				return (string) $this->content;
 			}else{
 				$this->error();

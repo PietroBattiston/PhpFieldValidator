@@ -54,8 +54,11 @@
 
 			$this->ruleWithParameters = [
 				'field-name'=> [
-					'content' => 'abc',
-					'rules' => 'type:string|slug|nospace'
+					//'content' => 'a b c',
+					'content' => '<alert> a b c </alert>',
+					//'rules' => 'type:string|slug|nospace|max:1'
+					'rules' => 'sanitize|slug'
+
 				]
 			];
 
@@ -110,8 +113,9 @@
 		public function test_rules_can_have_parameters(): void {
 			$rulesHandler = new RulesHandler($this->ruleWithParameters);
 			$rulesHandler->prepare();
-			
-			$this->assertTrue(empty($rulesHandler->errors));
+			//$this->assertTrue(empty($rulesHandler->errors));
+			$this->assertEquals(count($rulesHandler->errors), 2);
+
 		}
 
 

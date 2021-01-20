@@ -26,26 +26,32 @@
 	    		// Rules are separated by |. We extract them
 	    		$rules = explode('|', $value['rules']);
 	    		$validation = $this->callRelatedClass($key, $content, $rules);
-	    		$this->checkErrors($key, $validation);
+	    		//var_dump($validation['field-name']['content']);
+	    		//$this->checkErrors($key, $validation->error);
 	    	}
 	    		
     	}
 
     	private function callRelatedClass(string $fieldName, string $content, array $rules) {
+    		
+    		$test = [];
     		foreach ($rules as $rule) {
+
     			$ruleWithParameter = $this->checkRuleWithParameter($rule);
     			if ($ruleWithParameter) {
     				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
-    				$parameter = $ruleWithParameter[1];
-    				$this->checkNumericParameter($parameter);
+    				$parameter = $this->checkNumericParameter($ruleWithParameter[1]);
     				$validation = new $ruleToCall($content, $parameter);
     			}else{
     				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
     				$validation = new $ruleToCall($content);
     			}
-
-    			return $validation;
+    			$content = $validation->content;
+    			var_dump($validation);
+    			$this->checkErrors($fieldName, $validation);
+    			
     		}
+
     	}
 
     	private function updateContent(string $fieldName, string $content):void {
@@ -59,6 +65,8 @@
 			}else{
 	    		$this->updateContent($fieldName, $validation->content);
 			}
+
+			//var_dump($this->fields[$fieldName]['content']);
 			
 		}
 
@@ -71,7 +79,7 @@
 
 		private function checkNumericParameter(string $parameter) {
 			if (is_numeric($parameter)) {
-				return (string) intval($parameter);
+				return (int) intval($parameter);
 			}else{
 				return (string) $parameter;
 			}

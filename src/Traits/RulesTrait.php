@@ -13,7 +13,10 @@
 			$this->error = $errorMsg;
 		}
 
-		public function WhiteSpaces():bool {
+		public function noWhiteSpaces():bool {
+			// The line below fix a bug related to strpos; having a whitespace at the beginning of the string will cause the fail of the strpos check.
+			//we remove whitespaces at the beginning/end of the string with trim
+			$this->content = trim($this->content);
 			if (strpos($this->content, ' ') == FALSE) {
 				return TRUE;
 			}

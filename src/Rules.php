@@ -18,9 +18,12 @@
 				'required' => 'Required',
 				'numeric' => 'Numeric',
 				'length' => 'Length',
+				'max' => 'MaxLength',
+				'min' => 'MinLength',
 				'type' => 'Type',
 				'slug' => 'Slug',
-				'nospace' => 'NoSpace'
+				'nospace' => 'NoSpace',
+				'pd' => 'PD'
 			];
 
 			$this->rulesNamespace = 'App\Rules\\';
