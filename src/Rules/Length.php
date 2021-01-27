@@ -33,7 +33,7 @@
 		}	
 
 		private function max() {
-			if (strlen($this->content <= $this->lengthValue ) ) {
+			if (mb_strlen($this->content <= $this->lengthValue ) ) {
 				return (string) $this->content;
 			}else{
 				$this->error();

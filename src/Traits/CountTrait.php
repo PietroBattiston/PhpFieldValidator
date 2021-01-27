@@ -5,7 +5,7 @@
 	trait CountTrait {
 
 		public function count():int {
-			return (int) strlen($this->content);
+			return (int) mb_strlen($this->content);
 		}
 		
 	}

@@ -7,10 +7,14 @@
 
 	class LengthTest extends TestCase {
 
-		public $string;
+		private $string;
+		private $specialChars;
+
 		
 		protected function setUp(): void {
 			$this->string = uniqid();
+			$this->specialChars = 'ö';
+
 		}
 
 		public function test_a_string_must_respect_the_specified_length():void {
@@ -25,6 +29,13 @@
 			$lenghtValidator = new Length($this->string,0);
 
 			$this->assertFalse(empty($lenghtValidator->error));
+
+		}
+
+		public function test_special_chars_length():void {
+			$lenghtValidator = new Length($this->specialChars,1);
+			
+			$this->assertTrue(empty($lenghtValidator->error));
 
 		}
 	   

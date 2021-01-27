@@ -25,34 +25,62 @@
 	    		$content = $value['content'];
 	    		// Rules are separated by |. We extract them
 	    		$rules = explode('|', $value['rules']);
-	    		$validation = $this->callRelatedClass($key, $content, $rules);
-	    		//var_dump($validation['field-name']['content']);
-	    		//$this->checkErrors($key, $validation->error);
+	    		$validation = $this->validate($key, $content, $rules);
 	    	}
 	    		
     	}
 
-    	private function callRelatedClass(string $fieldName, string $content, array $rules) {
-    		
-    		$test = [];
-    		foreach ($rules as $rule) {
+    	private function validate(string $fieldName, string $content, array $rules) {
+	    	foreach ($rules as $rule) {
+	    		if ($content !== NULL) {
+		    		$ruleWithParameter = $this->checkRuleWithParameter($rule);
+		    		if ($ruleWithParameter) {
+		    			$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
+		    			$parameter = $this->checkNumericParameter($ruleWithParameter[1]);
+		    			$validation = $this->callRelatedClass ($ruleToCall, $content, $parameter);
+		    		}else{
+		    			$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
+		    			$validation = $this->callRelatedClass($ruleToCall, $content);
+		    		}
+		    		$content = $validation->content;
+		    		$this->checkErrors($fieldName, $validation);
+	    		}
+	    	}
 
-    			$ruleWithParameter = $this->checkRuleWithParameter($rule);
-    			if ($ruleWithParameter) {
-    				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
-    				$parameter = $this->checkNumericParameter($ruleWithParameter[1]);
-    				$validation = new $ruleToCall($content, $parameter);
-    			}else{
-    				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
-    				$validation = new $ruleToCall($content);
-    			}
-    			$content = $validation->content;
-    			var_dump($validation);
-    			$this->checkErrors($fieldName, $validation);
-    			
-    		}
 
     	}
+
+    	private function callRelatedClass(string $ruleToCall, string $content, $parameter = '') {
+    		if ($parameter) {
+    			$validation = new $ruleToCall($content, $parameter);
+    		}else{
+    			$validation = new $ruleToCall($content);
+    		}
+    		return $validation;
+    	}
+
+    	// private function callRelatedClass(string $fieldName, string $content, array $rules) {
+
+    	// 	foreach ($rules as $rule) {
+    	// 		if ($content != NULL) {
+	    // 			$ruleWithParameter = $this->checkRuleWithParameter($rule);
+	    // 			if ($ruleWithParameter) {
+	    // 				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
+	    // 				$parameter = $this->checkNumericParameter($ruleWithParameter[1]);
+	    // 				$validation = new $ruleToCall($content, $parameter);
+	    // 			}else{
+	    // 				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
+	    // 				$validation = new $ruleToCall($content);
+	    // 			}
+
+	    // 			$content = $validation->content;
+	    // 			$this->checkErrors($fieldName, $validation);
+    	// 		}
+    			
+    			
+    	// 	}
+
+    	// }
 
     	private function updateContent(string $fieldName, string $content):void {
     		$this->fields[$fieldName]['content'] = $content;
@@ -65,8 +93,6 @@
 			}else{
 	    		$this->updateContent($fieldName, $validation->content);
 			}
-
-			//var_dump($this->fields[$fieldName]['content']);
 			
 		}
 

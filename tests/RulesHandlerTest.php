@@ -28,6 +28,7 @@
 		private $fields;
 		private $validField;
 		private $invalidField;
+		private $multipleFields;
 
 
 		protected function setUp(): void {
@@ -54,10 +55,30 @@
 
 			$this->ruleWithParameters = [
 				'field-name'=> [
-					//'content' => 'a b c',
 					'content' => '<alert> a b c </alert>',
-					//'rules' => 'type:string|slug|nospace|max:1'
-					'rules' => 'sanitize|slug'
+					'rules' => 'sanitize|slug|max:1'
+
+				]
+			];
+
+			$this->multipleFields = [
+				'field-name'=> [
+					
+					'content' => 'abc',
+					'rules' => 'type:boolean'
+
+				],
+				'field-name2'=> [
+					'content' => 'abc',
+					'rules' => 'max:1'
+
+				]
+			];
+
+			$this->specialChars = [
+				'field-name'=> [
+					'content' => 'Schrödinger',
+					'rules' => 'sanitize'
 
 				]
 			];
@@ -83,7 +104,7 @@
 			$rulesHandler = new RulesHandler($this->ruleWithParameters);
 			$rulesHandler->prepare();
 			$validField = $this->ruleWithParameters['field-name']['content'];
-			$this->assertEquals($validField, $rulesHandler->fields['field-name']['content']);
+			$this->assertNotEquals($validField, $rulesHandler->fields['field-name']['content']);
 		}
 
 		public function test_must_have_errors_if_field_is_invalid(): void {
@@ -113,11 +134,21 @@
 		public function test_rules_can_have_parameters(): void {
 			$rulesHandler = new RulesHandler($this->ruleWithParameters);
 			$rulesHandler->prepare();
-			//$this->assertTrue(empty($rulesHandler->errors));
+			$this->assertEquals(count($rulesHandler->errors), 1);
+
+		}
+
+
+		public function test_must_returns_multiple_errors_if_multiple_invalid_fields(): void {
+			$rulesHandler = new RulesHandler($this->multipleFields);
+			$rulesHandler->prepare();
+			
+
 			$this->assertEquals(count($rulesHandler->errors), 2);
 
 		}
 
+		
 
 
 
