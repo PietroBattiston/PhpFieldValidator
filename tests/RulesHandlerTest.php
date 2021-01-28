@@ -125,26 +125,7 @@
 
 		}
 
-		// public function test_a_custom_rule_can_be_used(): void {
-
-		// 	$fieldWithCustomRule = [
-		// 		'field-name'=> [
-		// 			'content' => 'abc',
-		// 			'rules' => 'dioporco'
-
-		// 		]
-		// 	];
-
-		// 	$customRule = ['slug' => 'Slug'];
-		// 	$rulesHandler = new RulesHandler($fieldWithCustomRule, $customRule);
-		// 	$rulesHandler->prepare();
-			
-		// 	var_dump($rulesHandler);
-		// 	$this->assertEquals(count($rulesHandler->errors), 2);
-
-		// }
-
-
+		
 		
 
 

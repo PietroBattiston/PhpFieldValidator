@@ -28,7 +28,6 @@
 
 			$this->rulesNamespace = 'pbattiston\PhpFieldValidator\Rules\\';
 			
-			//$x = new Rules\Dioporco;
 		}
 
 
