@@ -1,7 +1,7 @@
 <?php 
 	declare(strict_types=1);
 	use PHPUnit\Framework\TestCase;
-	use App\Rules\Required;
+	use pbattiston\PhpFieldValidator\Rules\Required;
 	
 	
 

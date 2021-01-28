@@ -1,9 +1,9 @@
 <?php
 	declare(strict_types=1);
 
-	namespace App\Rules;
+	namespace pbattiston\PhpFieldValidator\Rules;
 
-	use App\Traits\RulesTrait as RulesTrait;
+	use pbattiston\PhpFieldValidator\Traits\RulesTrait as RulesTrait;
 
 
 	class Numeric extends Rule implements RulesInterface {

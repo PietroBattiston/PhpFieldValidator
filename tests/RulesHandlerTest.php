@@ -2,33 +2,11 @@
 	declare(strict_types=1);
 	use PHPUnit\Framework\TestCase;
 	use PHPUnit\Framework\MockObject\MockObject;
-	use App\RulesHandler;
-
-
-
-		// Our script must:
-		// Check if the field exists
-		// Check input type (string, file, etc)
-		// Verify telephone numbers format
-		// Verify Postcodes format
-		// Verify Date of birth
-		// Verify Images
-		// Accepts only given images extentions
-
-
-				//OK
-		// Sanitize strings OK
-		// Verify email format
-		// Set a field as required
+	use pbattiston\PhpFieldValidator\RulesHandler;
 
 	
 
 	class RulesHandlerTest extends TestCase {
-
-		private $fields;
-		private $validField;
-		private $invalidField;
-		private $multipleFields;
 
 
 		protected function setUp(): void {
@@ -63,7 +41,6 @@
 
 			$this->multipleFields = [
 				'field-name'=> [
-					
 					'content' => 'abc',
 					'rules' => 'type:boolean'
 
@@ -147,6 +124,26 @@
 			$this->assertEquals(count($rulesHandler->errors), 2);
 
 		}
+
+		// public function test_a_custom_rule_can_be_used(): void {
+
+		// 	$fieldWithCustomRule = [
+		// 		'field-name'=> [
+		// 			'content' => 'abc',
+		// 			'rules' => 'dioporco'
+
+		// 		]
+		// 	];
+
+		// 	$customRule = ['slug' => 'Slug'];
+		// 	$rulesHandler = new RulesHandler($fieldWithCustomRule, $customRule);
+		// 	$rulesHandler->prepare();
+			
+		// 	var_dump($rulesHandler);
+		// 	$this->assertEquals(count($rulesHandler->errors), 2);
+
+		// }
+
 
 		
 

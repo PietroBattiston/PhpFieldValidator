@@ -1,8 +1,8 @@
 <?php
 	declare(strict_types=1);
-	namespace App\Rules;
+	namespace pbattiston\PhpFieldValidator\Rules;
 
-	use App\Traits\RulesTrait as RulesTrait; 
+	use pbattiston\PhpFieldValidator\Traits\RulesTrait as RulesTrait; 
 
 
 	class Sanitize extends Rule implements RulesInterface {

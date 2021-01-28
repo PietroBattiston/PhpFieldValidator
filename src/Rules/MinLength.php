@@ -1,8 +1,8 @@
 <?php
 	declare(strict_types=1);
 
-	namespace App\Rules;
-	use App\Traits\RulesTrait as RulesTrait;
+	namespace pbattiston\PhpFieldValidator\Rules;
+	use pbattiston\PhpFieldValidator\Traits\RulesTrait as RulesTrait;
 
 	
 	class MinLength extends Length implements RulesInterface {

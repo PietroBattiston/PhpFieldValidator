@@ -1,7 +1,8 @@
 <?php
 	declare(strict_types=1);
-	namespace App;
-	use App\Rules\Sanitize;
+	namespace pbattiston\PhpFieldValidator;
+	//use pbattiston\PhpFieldValidator\Rules;
+
 	/**
 	 * 
 	 */
@@ -25,6 +26,11 @@
 				'nospace' => 'NoSpace',
 			];
 
-			$this->rulesNamespace = 'App\Rules\\';
+			$this->rulesNamespace = 'pbattiston\PhpFieldValidator\Rules\\';
+			
+			//$x = new Rules\Dioporco;
 		}
+
+
 	}
+

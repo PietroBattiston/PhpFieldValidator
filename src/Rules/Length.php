@@ -1,9 +1,9 @@
 <?php
 	declare(strict_types=1);
 
-	namespace App\Rules;
-	use App\Traits\RulesTrait as RulesTrait;
-	use App\Traits\CountTrait as CountTrait;
+	namespace pbattiston\PhpFieldValidator\Rules;
+	use pbattiston\PhpFieldValidator\Traits\RulesTrait as RulesTrait;
+	use pbattiston\PhpFieldValidator\Traits\CountTrait as CountTrait;
 
 	
 	class Length extends Rule implements RulesInterface {

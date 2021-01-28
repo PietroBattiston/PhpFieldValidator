@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
-	namespace App;
-
+	namespace pbattiston\PhpFieldValidator;
+	use pbattiston\PhpFieldValidator\Rules;
 	//we set the field name
 	// we get the content
 	// we call any related Classes
@@ -13,14 +13,23 @@
 
 		public $fields;
 		public $errors;
+		public $customRules;
 
-    	function __construct(array $fields) {
+    	function __construct(array $fields, array $customRules = []) {
     		$this->fields = $fields;
     		$this->errors = [];
+    		$this->customRules = $customRules;
     		parent::__construct();		
     	}
 
     	public function prepare() {
+    		// If there's a custom rule add it to the rules_list:[ruleName => ClassName]
+    		if ($this->customRules) {
+    			foreach ($this->customRules as $rule => $className) {
+    				$this->rules_list[$rule] = $className;
+    				
+    			}
+    		}
 	    	foreach ($this->fields as $key => $value) {
 	    		$content = $value['content'];
 	    		// Rules are separated by |. We extract them
@@ -59,28 +68,6 @@
     		return $validation;
     	}
 
-    	// private function callRelatedClass(string $fieldName, string $content, array $rules) {
-
-    	// 	foreach ($rules as $rule) {
-    	// 		if ($content != NULL) {
-	    // 			$ruleWithParameter = $this->checkRuleWithParameter($rule);
-	    // 			if ($ruleWithParameter) {
-	    // 				$ruleToCall = $this->rulesNamespace . $this->rules_list[$ruleWithParameter[0]];
-	    // 				$parameter = $this->checkNumericParameter($ruleWithParameter[1]);
-	    // 				$validation = new $ruleToCall($content, $parameter);
-	    // 			}else{
-	    // 				$ruleToCall = $this->rulesNamespace . $this->rules_list[$rule];
-	    // 				$validation = new $ruleToCall($content);
-	    // 			}
-
-	    // 			$content = $validation->content;
-	    // 			$this->checkErrors($fieldName, $validation);
-    	// 		}
-    			
-    			
-    	// 	}
-
-    	// }
 
     	private function updateContent(string $fieldName, string $content):void {
     		$this->fields[$fieldName]['content'] = $content;
