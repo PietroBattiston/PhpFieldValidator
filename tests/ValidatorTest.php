@@ -13,7 +13,6 @@
 	 		$this->validator = new PhpFieldValidator([
 	 			'field1' => 'max:2|required',
 	 			'field2' => 'sanitize|email',
-
 	 		]);
 
 	 		$_POST['field1'] = "string1";
@@ -47,7 +46,7 @@
 		public function test_validator_must_have_errors_if_validation_fails(): void {
 
 			$this->validator->prepare();
-
+var_dump($this->validator->fields);
 			$this->assertTrue(!empty($this->validator->errors));
 
 
@@ -60,18 +59,21 @@
 	 			'empty' => 'max:2|required',
 	 		]);
 
-			$this->assertEquals(NULL, $validator->content);
+
+			$this->validator->prepare();
+			$this->assertEquals(NULL, $validator->validatedContent['empty']);
 			$this->assertEquals(0, count($validator->errors));
 		}
 
-		public function test_a_custom_rule_can_be_added(): void {
-			$customRule = ['customRule' => 'customClass'];
-			$this->validator->addRules($customRule);
-			$this->assertEquals(0, count($this->validator->errors));
+		/*Custom Rules available in the next Version*/
+		// public function test_a_custom_rule_can_be_added(): void {
+		// 	$customRule = ['customRule' => 'customClass'];
+		// 	$this->validator->addCustomRules($customRule);
+		// 	$this->assertEquals(0, count($this->validator->errors));
 
 
 			
-		}
+		// }
 
 	
 

@@ -69,7 +69,7 @@
     	}
 
 
-    	private function updateContent(string $fieldName, string $content):void {
+    	private function updateContent(string $fieldName, $content=''):void {
     		$this->fields[$fieldName]['content'] = $content;
     	}
 
