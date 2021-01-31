@@ -29,7 +29,7 @@ composer update
 ```php
 $validator = new PhpFieldValidator([
 	'field_name' => 'rule1|rule2|rule3',
-    'field_name2' => 'rule1|rule2|rule3'
+	'field_name2' => 'rule1|rule2|rule3'
 ]);
 $validator->prepare();
 ```
