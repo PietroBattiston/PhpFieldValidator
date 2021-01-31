@@ -34,7 +34,7 @@ $validator = new PhpFieldValidator([
 $validator->prepare();
 ```
 
-# Example
+## Example
 
 ```php
 $validator = new PhpFieldValidator([
