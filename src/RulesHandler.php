@@ -13,23 +13,14 @@
 
 		public $fields;
 		public $errors;
-		public $customRules;
 
-    	function __construct(array $fields, array $customRules = []) {
+    	function __construct(array $fields) {
     		$this->fields = $fields;
     		$this->errors = [];
-    		$this->customRules = $customRules;
     		parent::__construct();		
     	}
 
-    	public function prepare() {
-    		// If there's a custom rule add it to the rules_list:[ruleName => ClassName]
-    		if ($this->customRules) {
-    			foreach ($this->customRules as $rule => $className) {
-    				$this->rules_list[$rule] = $className;
-    				
-    			}
-    		}
+    	public function prepare():void {
 	    	foreach ($this->fields as $key => $value) {
 	    		$content = $value['content'];
 	    		// Rules are separated by |. We extract them
@@ -39,7 +30,7 @@
 	    		
     	}
 
-    	private function validate(string $fieldName, string $content, array $rules) {
+    	private function validate(string $fieldName, string $content, array $rules):void {
 	    	foreach ($rules as $rule) {
 	    		if ($content !== NULL) {
 		    		$ruleWithParameter = $this->checkRuleWithParameter($rule);
@@ -98,12 +89,6 @@
 			}
 			
 		}
-
-		
-
-		
-
-
 
 
 	}

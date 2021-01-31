@@ -1,7 +1,6 @@
 <?php
 	declare(strict_types=1);
 	namespace pbattiston\PhpFieldValidator;
-	//use pbattiston\PhpFieldValidator\Rules;
 
 	/**
 	 * 

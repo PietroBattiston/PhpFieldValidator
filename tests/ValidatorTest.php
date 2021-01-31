@@ -46,7 +46,6 @@
 		public function test_validator_must_have_errors_if_validation_fails(): void {
 
 			$this->validator->prepare();
-var_dump($this->validator->fields);
 			$this->assertTrue(!empty($this->validator->errors));
 
 
